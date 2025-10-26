@@ -14,6 +14,23 @@ describe('Login Test - SauceDemo.com', () => {
     cy.url().should('eq', `${Cypress.config('baseUrl')}/inventory.html`)
   })
 
+
+  it('should logout be successful', () => {
+    loginPage.fillUsername('standard_user')
+    loginPage.fillPassword('secret_sauce')
+    loginPage.errorMessage.should('not.exist')
+    loginPage.submitButton.click()
+
+    cy.url().should('eq', `${Cypress.config('baseUrl')}/inventory.html`)
+    //open hamburger button
+    cy.get('.bm-burger-button').click()
+
+    //find logout button
+    cy.get('[data-test="logout-sidebar-link"]').should('be.visible').click()
+    cy.url().should('include', '/')
+  })
+
+
   it('should show error when username is empty', () => {
     loginPage.fillPassword('secret_sauce')
     loginPage.submitButton.click()
@@ -30,6 +47,5 @@ describe('Login Test - SauceDemo.com', () => {
     loginPage.fillPassword('teqteqyqe');
     loginPage.submitButton.click()
     loginPage.errorMessage.should('be.visible').contains('Epic sadface: Username and password do not match any user in this service')
-
   })
 })

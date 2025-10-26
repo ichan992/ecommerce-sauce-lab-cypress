@@ -16,7 +16,6 @@ Cypress.Commands.add('assertValidationFirstName', (information) => {
     cy.get('[data-test="checkout"]').should('be.visible').click()
     cy.url().should('include', '/checkout-step-one.html')
     // fill up user information except firstname
-    // cy.get('[data-test="firstName"]').should('be.visible').type(information.firstName)
 
     cy.get('[data-test="lastName"]').should('be.visible').type(information.lastName)
     cy.get('[data-test="postalCode"]').should('be.visible').type(information.zipCode)
